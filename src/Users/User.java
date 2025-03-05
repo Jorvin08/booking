@@ -38,16 +38,16 @@ public class User extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel9.setBackground(new java.awt.Color(102, 255, 255));
+        jPanel9.setBackground(new java.awt.Color(102, 204, 255));
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel10.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel10.setBackground(new java.awt.Color(0, 102, 102));
         jPanel10.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(0, 51, 102)));
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel16.setFont(new java.awt.Font("Berlin Sans FB", 1, 24)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Booking Users Dashboard");
+        jLabel16.setText("BOOKING USERS DASHBOARD");
         jPanel10.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 610, 40));
 
         jLabel28.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
@@ -58,7 +58,7 @@ public class User extends javax.swing.JFrame {
                 jLabel28MouseClicked(evt);
             }
         });
-        jPanel10.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 0, 40, 40));
+        jPanel10.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 50, 40));
 
         jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 60));
 

@@ -68,7 +68,7 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel16.setFont(new java.awt.Font("Berlin Sans FB", 1, 24)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Booking Admin Dashboard");
+        jLabel16.setText("BOOKING ADMIN DASHBOARD");
         jPanel10.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 610, 40));
 
         jLabel28.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
@@ -100,6 +100,7 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel9.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 150, 330));
 
+        table_users.setBackground(new java.awt.Color(102, 204, 255));
         table_users.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

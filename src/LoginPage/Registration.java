@@ -87,10 +87,11 @@ public class Registration extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel9.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel9.setBackground(new java.awt.Color(102, 204, 255));
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel23.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -199,7 +200,7 @@ public class Registration extends javax.swing.JFrame {
         jPanel9.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 90, -1));
         jPanel9.add(contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 330, 160, -1));
 
-        jPanel5.setBackground(new java.awt.Color(51, 0, 102));
+        jPanel5.setBackground(new java.awt.Color(0, 102, 102));
         jPanel5.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(0, 51, 102)));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -211,7 +212,7 @@ public class Registration extends javax.swing.JFrame {
                 jLabel25MouseClicked(evt);
             }
         });
-        jPanel5.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 10, 40, 40));
+        jPanel5.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 10, 50, 50));
 
         jLabel16.setFont(new java.awt.Font("Berlin Sans FB", 1, 24)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -224,6 +225,10 @@ public class Registration extends javax.swing.JFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel6.setForeground(new java.awt.Color(255, 255, 255));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/481574694_951674000280200_1586957167296398184_n.jpg"))); // NOI18N
+        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-190, 70, 420, 370));
+
         jPanel9.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 130, 380));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -346,6 +351,7 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JTextField fname;
     private javax.swing.JComboBox<String> gender;
     private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel23;
