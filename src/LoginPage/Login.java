@@ -212,7 +212,7 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         }else{
-            JOptionPane.showMessageDialog(null, "sayup salamat sa tanan!");
+            JOptionPane.showMessageDialog(null, "Login Unsuccesfull!");
         }
     }//GEN-LAST:event_loginActionPerformed
 

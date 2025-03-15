@@ -313,8 +313,8 @@ public class UsersForm extends javax.swing.JFrame {
                adf.id.setText(""+rs.getString("id"));
               adf.fname.setText(""+rs.getString("fname"));
               adf.lname.setText(""+rs.getString("lname"));
-              adf.lname.setText(""+rs.getString("gender"));
-               adf.lname.setText(""+rs.getString("gender"));
+              
+               adf.gender.setSelectedItem(""+rs.getString("gender"));
                adf.email.setText(""+rs.getString("email"));
                adf.uname.setText(""+rs.getString("uname"));
                adf.pname.setText(""+rs.getString("pname"));
