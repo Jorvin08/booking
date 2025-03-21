@@ -10,6 +10,8 @@ import Config.passwordHasher;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -48,6 +50,7 @@ public class Registration extends javax.swing.JFrame {
             }else{
                 return false;
             }
+            
         }catch(SQLException ex){
             System.out.println(""+ex);
             return false;
@@ -121,6 +124,12 @@ public class Registration extends javax.swing.JFrame {
         jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel32.setText("User Type:");
         jPanel9.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 90, -1));
+
+        email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailActionPerformed(evt);
+            }
+        });
         jPanel9.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, 160, -1));
         jPanel9.add(uname, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 160, -1));
 
@@ -265,11 +274,25 @@ public class Registration extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "All Fields are Required!");
         }else if(pname.getText().length()<8){
             JOptionPane.showMessageDialog(null, "Password Must be longer than 8!");
-        }else if(!(pname.getText().equals(pconfirm.getText()))){
+            
+        }
+        String emails =email.getText();
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+        Pattern patternEmail = Pattern.compile(emailRegex);
+        Matcher matcherEmail = patternEmail.matcher(emails);
+
+        if (!matcherEmail.matches()) {
+            JOptionPane.showMessageDialog(this, "Invalid email format. Please use a valid email address.", "Error", JOptionPane.ERROR_MESSAGE);
+            email.setText("");
+            email.requestFocus();
+        }
+        else if(!(pname.getText().equals(pconfirm.getText()))){
             JOptionPane.showMessageDialog(null, "Password does not much!");
         }else if(duplicateChecker()){
+            
             System.out.println("Duplicate Exist!");
         }else{
+            
        
             config conf = new config();
            try {
@@ -296,6 +319,10 @@ public class Registration extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jLabel25MouseClicked
+
+    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
+
+    }//GEN-LAST:event_emailActionPerformed
 
     /**
      * @param args the command line arguments
