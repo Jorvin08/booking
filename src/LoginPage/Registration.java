@@ -8,18 +8,20 @@ package LoginPage;
 import Config.config;
 import Config.passwordHasher;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Raven
- */
-public class Registration extends javax.swing.JFrame {
 
+public class Registration extends javax.swing.JFrame {
+ private static final String DB_URL = "jdbc:mysql://localhost:3306/booking";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = "";
     /**
      * Creates new form Registration
      */
@@ -93,6 +95,9 @@ public class Registration extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         pname = new javax.swing.JPasswordField();
+        sq = new javax.swing.JComboBox<>();
+        ans = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -107,8 +112,8 @@ public class Registration extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("REGISTRATION PAGE");
-        jPanel9.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 560, 70));
+        jLabel12.setText("Advanced Security");
+        jPanel9.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 270, 180, 20));
 
         jLabel30.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -183,7 +188,7 @@ public class Registration extends javax.swing.JFrame {
                 BackActionPerformed(evt);
             }
         });
-        jPanel9.add(Back, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 250, 80, -1));
+        jPanel9.add(Back, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 440, 80, -1));
 
         jButton5.setBackground(new java.awt.Color(0, 255, 255));
         jButton5.setText("Register");
@@ -192,7 +197,7 @@ public class Registration extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel9.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 250, 80, -1));
+        jPanel9.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 440, 80, -1));
 
         jLabel36.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -232,15 +237,24 @@ public class Registration extends javax.swing.JFrame {
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/481574694_951674000280200_1586957167296398184_n.jpg"))); // NOI18N
-        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-190, 70, 420, 370));
+        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-190, 70, 420, 430));
 
-        jPanel9.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 130, 380));
+        jPanel9.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 130, 480));
         jPanel9.add(pname, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, 160, -1));
 
-        getContentPane().add(jPanel9);
-        jPanel9.setBounds(39, 47, 730, 380);
+        sq.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What's your favorite food?", "What's your hobby?", "Who is your mother?", "What is your favorite place?", "What is your Code name?" }));
+        jPanel9.add(sq, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 300, 230, -1));
+        jPanel9.add(ans, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 330, 230, -1));
 
-        setSize(new java.awt.Dimension(842, 530));
+        jLabel13.setFont(new java.awt.Font("Berlin Sans FB", 1, 18)); // NOI18N
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("REGISTRATION PAGE");
+        jPanel9.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 560, 70));
+
+        getContentPane().add(jPanel9);
+        jPanel9.setBounds(39, 47, 730, 480);
+
+        setSize(new java.awt.Dimension(896, 580));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -264,54 +278,90 @@ public class Registration extends javax.swing.JFrame {
     }//GEN-LAST:event_BackActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       
-        if(fname.getText().isEmpty()
-            || lname.getText().isEmpty()
-            || email.getText().isEmpty()
-            || uname.getText().isEmpty()
-            || pname.getText().isEmpty()
-            || contact.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "All Fields are Required!");
-        }else if(pname.getText().length()<8){
-            JOptionPane.showMessageDialog(null, "Password Must be longer than 8!");
-            
-        }
-        String emails =email.getText();
-        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
-        Pattern patternEmail = Pattern.compile(emailRegex);
-        Matcher matcherEmail = patternEmail.matcher(emails);
-
-        if (!matcherEmail.matches()) {
-            JOptionPane.showMessageDialog(this, "Invalid email format. Please use a valid email address.", "Error", JOptionPane.ERROR_MESSAGE);
-            email.setText("");
-            email.requestFocus();
-        }
-        else if(!(pname.getText().equals(pconfirm.getText()))){
-            JOptionPane.showMessageDialog(null, "Password does not much!");
-        }else if(duplicateChecker()){
-            
-            System.out.println("Duplicate Exist!");
-        }else{
-            
-       
-            config conf = new config();
-           try {
-            String pass = passwordHasher.hashPassword(pname.getText());
-            
-            if(conf.insertData("INSERT INTO users (fname, lname, gender, account_type, email, uname, pname, contact, status) "
-                + "VALUES ('"+fname.getText()+"', '"+lname.getText()+"', '"+gender.getSelectedItem()+"'"
-                + ", '"+utype.getSelectedItem()+"', '"+email.getText()+"', '"+uname.getText()+"'"
-                + ", '"+pass+"', '"+contact.getText()+"', 'Pending')")==1){
-            JOptionPane.showMessageDialog(null, "Registered Successfully!");
-            Login login = new Login();
-            login.setVisible(true);
-            this.dispose();
-            }
+            // Validate required fields
+    if (fname.getText().isEmpty() || lname.getText().isEmpty() || email.getText().isEmpty()
+            || uname.getText().isEmpty() || pname.getText().isEmpty() || contact.getText().isEmpty()
+            || sq.getSelectedItem() == null || ans.getText().isEmpty()) {
         
-            }catch(NoSuchAlgorithmException ex){
-               System.out.println(""+ ex);
-           }
-           }
+        JOptionPane.showMessageDialog(null, "All Fields are Required!");
+        return;  // Stop further execution if fields are missing
+    }
+
+    // Password length validation
+    if (pname.getText().length() < 8) {
+        JOptionPane.showMessageDialog(null, "Password should contain at least 8 characters!");
+        return;
+    }
+
+    // Email format validation
+    String emails = email.getText();
+    String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+    Pattern patternEmail = Pattern.compile(emailRegex);
+    Matcher matcherEmail = patternEmail.matcher(emails);
+
+    if (!matcherEmail.matches()) {
+        JOptionPane.showMessageDialog(this, "Invalid email format. Please use a valid email address.", "Error", JOptionPane.ERROR_MESSAGE);
+        email.setText("");
+        email.requestFocus();
+        return;  
+    }
+
+    
+    if (!pname.getText().equals(pconfirm.getText())) {
+        JOptionPane.showMessageDialog(null, "Password does not match!");
+        return;  
+    }
+
+    
+    if (duplicateChecker()) {
+        JOptionPane.showMessageDialog(null, "Duplicate user exists!");
+        return;
+    }
+
+    
+    try {
+        String pass = passwordHasher.hashPassword(pname.getText());
+
+       
+        String query = "INSERT INTO users (fname, lname, gender, account_type, email, uname, pname, contact, status, image, sq, ans) "
+                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Pending', '', ?, ?)";
+
+        
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            
+            stmt.setString(1, fname.getText());
+            stmt.setString(2, lname.getText());
+            stmt.setString(3, gender.getSelectedItem().toString());
+            stmt.setString(4, utype.getSelectedItem().toString());
+            stmt.setString(5, email.getText());
+            stmt.setString(6, uname.getText());
+            stmt.setString(7, pass);
+            stmt.setString(8, contact.getText());
+            stmt.setString(9, sq.getSelectedItem().toString());
+            stmt.setString(10, ans.getText());
+
+            
+            int result = stmt.executeUpdate();
+
+            if (result == 1) {
+                JOptionPane.showMessageDialog(null, "Registered Successfully!");
+                Login login = new Login();
+                login.setVisible(true);
+                this.dispose();
+            }
+        }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error occurred while registering user. Please try again.");
+        ex.printStackTrace();  
+    } catch (NoSuchAlgorithmException ex) {
+        JOptionPane.showMessageDialog(null, "Error occurred while hashing password. Please try again.");
+        ex.printStackTrace();  
+    }
+            
+        
               
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -361,6 +411,7 @@ public class Registration extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Back;
+    private javax.swing.JTextField ans;
     private javax.swing.JTextField contact;
     private javax.swing.JTextField email;
     private javax.swing.JTextField fname;
@@ -368,6 +419,7 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -385,6 +437,7 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JTextField lname;
     private javax.swing.JPasswordField pconfirm;
     private javax.swing.JPasswordField pname;
+    private javax.swing.JComboBox<String> sq;
     private javax.swing.JTextField uname;
     private javax.swing.JComboBox<String> utype;
     // End of variables declaration//GEN-END:variables

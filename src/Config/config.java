@@ -11,6 +11,10 @@ import javax.swing.JOptionPane;
 public class config {
     private Connection connect;
 
+    
+     public Connection getConnection() {
+        return connect;
+    }
        // constructor to connect to our database
         public config(){
             try{

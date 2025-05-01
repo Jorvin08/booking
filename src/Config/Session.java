@@ -22,6 +22,10 @@ public class Session {
       private String pname; 
        private String contact; 
     private String status; 
+    private String sq;
+    private String ans;
+
+   
     
     private Session(){
      // privatecon. prevent instance
@@ -120,5 +124,19 @@ public class Session {
     }
     
     
-    
+     public String getSq() {
+        return sq;
+    }
+
+    public void setSq(String sq) {
+        this.sq = sq;
+    }
+
+    public String getAns() {
+        return ans;
+    }
+
+    public void setAns(String ans) {
+        this.ans = ans;
+    }
 }

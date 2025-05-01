@@ -11,6 +11,7 @@ import Config.config;
 import Config.passwordHasher;
 import LoginPage.Login;
 import java.security.NoSuchAlgorithmException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -57,6 +58,7 @@ public class changePass extends javax.swing.JFrame {
         save1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -179,7 +181,8 @@ public class changePass extends javax.swing.JFrame {
         getContentPane().add(jPanel9);
         jPanel9.setBounds(0, 0, 670, 390);
 
-        setBounds(0, 0, 686, 429);
+        setSize(new java.awt.Dimension(686, 429));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel28MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MouseClicked
@@ -213,33 +216,50 @@ public class changePass extends javax.swing.JFrame {
     }//GEN-LAST:event_saveMouseClicked
 
     private void save1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_save1MouseClicked
-         try{
-          config conf = new config();
-           Session ses = Session.getInstance();
-         
-          String query = "SELECT * from users WHERE id = '"+ses.getId()+"'";
-            ResultSet rs = conf.getData(query);
-            
-           
-            if(rs.next()){
+    try {
+        config conf = new config();
+        Session ses = Session.getInstance();
+        
+        // Fetch the user's id from the session to target the specific user
+        String query = "SELECT * from users WHERE id = '" + ses.getId() + "'";
+        ResultSet rs = conf.getData(query);
+
+        // Check if the user exists
+        if (rs.next()) {
+            // Get the old password from the database
+            String olddbpass = rs.getString("pname");
+
+            // Hash the input old password to compare with the stored one
+            String oldhash = passwordHasher.hashPassword(oldpass.getText());
+
+            // If the old passwords match
+            if (olddbpass.equals(oldhash)) {
+                // Hash the new password and update only the specific user's password
+                String npass = passwordHasher.hashPassword(newpass.getText());
                 
-             String  olddbpass=rs.getString("pname");
-               String oldhash = passwordHasher.hashPassword(oldpass.getText());
-               if(olddbpass.equals(oldhash)){
-                   String npass=passwordHasher.hashPassword(newpass.getText());
-                   conf.updateData("UPDATE users SET pname ='"+npass+"' ");
-                    JOptionPane.showMessageDialog(null,"wohoah Updates Succesfully!");
+                // Make sure to specify the user by their id in the WHERE clause
+                String updateQuery = "UPDATE users SET pname = ? WHERE id = ?";
+                try (PreparedStatement stmt = conf.getConnection().prepareStatement(updateQuery)) {
+                    stmt.setString(1, npass);  // Set the new password
+                    stmt.setInt(2, ses.getId()); // Set the logged-in user's id to target the specific user
+                    int rowsAffected = stmt.executeUpdate();
+                    
+                    if (rowsAffected == 1) {
+                        JOptionPane.showMessageDialog(null, "Password updated successfully!");
                         Login lg = new Login();
                         lg.setVisible(true);
                         this.dispose();
-               }else{
-                   JOptionPane.showMessageDialog(null,"Old password is incorrect!");
-               }
-                
+                    } else {
+                        JOptionPane.showMessageDialog(null, "An error occurred while updating the password.");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Old password is incorrect!");
             }
-       }catch(SQLException | NoSuchAlgorithmException ex){
-           System.out.println(""+ ex);
-       }
+        }
+    } catch (SQLException | NoSuchAlgorithmException ex) {
+        System.out.println("Error: " + ex);
+    }
     
     }//GEN-LAST:event_save1MouseClicked
 

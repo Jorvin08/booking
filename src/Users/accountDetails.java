@@ -58,6 +58,7 @@ public class accountDetails extends javax.swing.JFrame {
         jLabel34 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -205,7 +206,8 @@ public class accountDetails extends javax.swing.JFrame {
         getContentPane().add(jPanel9);
         jPanel9.setBounds(0, 0, 670, 390);
 
-        setBounds(0, 0, 686, 429);
+        setSize(new java.awt.Dimension(686, 429));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel28MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MouseClicked

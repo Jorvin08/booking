@@ -46,6 +46,7 @@ public class User extends javax.swing.JFrame {
         Ausers2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -153,7 +154,8 @@ public class User extends javax.swing.JFrame {
         getContentPane().add(jPanel9);
         jPanel9.setBounds(0, 0, 670, 390);
 
-        setBounds(0, 0, 686, 429);
+        setSize(new java.awt.Dimension(686, 429));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel28MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MouseClicked
@@ -241,13 +243,9 @@ public class User extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Acc_fname;
     private javax.swing.JLabel Acc_lname;
-    private javax.swing.JLabel Ausers;
-    private javax.swing.JLabel Ausers1;
     private javax.swing.JLabel Ausers2;
-    private javax.swing.JPanel header10;
     private javax.swing.JPanel header11;
     private javax.swing.JPanel header14;
-    private javax.swing.JPanel header9;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;

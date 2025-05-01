@@ -5,9 +5,11 @@
  */
 package LoginPage;
 
+import Config.Logs;
 import Config.Session;
 import Config.config;
 import Config.passwordHasher;
+import Users.ForgotPassword;
 import Users.User;
 import admin.Admins;
 import java.security.NoSuchAlgorithmException;
@@ -99,6 +101,7 @@ public class Login extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         pname = new javax.swing.JPasswordField();
         login = new javax.swing.JButton();
+        jLabel26 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -187,6 +190,17 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel3.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 270, 80, -1));
 
+        jLabel26.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(102, 102, 255));
+        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel26.setText("Forgot password");
+        jLabel26.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel26MouseClicked(evt);
+            }
+        });
+        jPanel3.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 140, 20));
+
         getContentPane().add(jPanel3);
         jPanel3.setBounds(97, 50, 629, 380);
 
@@ -195,12 +209,14 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-        // TODO add your handling code here:
+        
         if(loging_in(uname.getText(), pname.getText())){
             if(!status.equals("Active")){
                 JOptionPane.showMessageDialog(null, "In-Active Account, Contact the Admin!");
             }else{
                 JOptionPane.showMessageDialog(null, "Login Successfully!");
+                
+                 Logs.logFunctionCall(uname.getText() + " logged in successfully");
                 if(type.equals("Admin")){
                     Admins usf= new Admins();
                     usf.setVisible(true);
@@ -232,9 +248,15 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel22MouseClicked
 
     private void jLabel25MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel25MouseClicked
-        // TODO add your handling code here:
+        
         this.dispose();
     }//GEN-LAST:event_jLabel25MouseClicked
+
+    private void jLabel26MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel26MouseClicked
+        ForgotPassword fp = new ForgotPassword();
+        fp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel26MouseClicked
 
     /**
      * @param args the command line arguments
@@ -279,6 +301,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
