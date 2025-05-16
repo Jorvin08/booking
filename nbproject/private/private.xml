@@ -3,14 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/JORVIN%20PENGOC/Desktop/booking/src/LoginPage/Registration.java</file>
-            <file>file:/C:/Users/JORVIN%20PENGOC/Desktop/booking/src/Config/Session.java</file>
-            <file>file:/C:/Users/JORVIN%20PENGOC/Desktop/booking/src/LoginPage/Login.java</file>
-            <file>file:/C:/Users/JORVIN%20PENGOC/Desktop/booking/src/Users/User.java</file>
-            <file>file:/C:/Users/JORVIN%20PENGOC/Desktop/booking/src/Users/UsersForm.java</file>
-            <file>file:/C:/Users/JORVIN%20PENGOC/Desktop/booking/src/Users/accountDetails.java</file>
-            <file>file:/C:/Users/JORVIN%20PENGOC/Desktop/booking/src/Users/changePass.java</file>
-            <file>file:/C:/Users/JORVIN%20PENGOC/Desktop/booking/src/Config/config.java</file>
+            <file>file:/C:/Users/II/Documents/NetBeansProjects/booking/src/admin/Hotels.java</file>
+            <file>file:/C:/Users/II/Documents/NetBeansProjects/booking/src/LoginPage/Login.java</file>
+            <file>file:/C:/Users/II/Documents/NetBeansProjects/booking/src/transactions/reservationsandbookings.java</file>
+            <file>file:/C:/Users/II/Documents/NetBeansProjects/booking/src/admin/reservedbookings.java</file>
+            <file>file:/C:/Users/II/Documents/NetBeansProjects/booking/src/transactions/reservehotel.java</file>
+            <file>file:/C:/Users/II/Documents/NetBeansProjects/booking/src/admin/bookedHotels.java</file>
+            <file>file:/C:/Users/II/Documents/NetBeansProjects/booking/src/admin/Admins.java</file>
+            <file>file:/C:/Users/II/Documents/NetBeansProjects/booking/src/transactions/bookhotel.java</file>
+            <file>file:/C:/Users/II/Documents/NetBeansProjects/booking/src/admin/AddHotel.java</file>
+            <file>file:/C:/Users/II/Documents/NetBeansProjects/booking/src/Config/PrintHelper.java</file>
+            <file>file:/C:/Users/II/Documents/NetBeansProjects/booking/src/Config/Session.java</file>
+            <file>file:/C:/Users/II/Documents/NetBeansProjects/booking/src/Users/User.java</file>
         </group>
     </open-files>
 </project-private>

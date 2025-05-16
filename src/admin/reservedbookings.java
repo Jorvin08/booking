@@ -89,6 +89,7 @@ private void loadAllReservationsToTable() {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         Print = new javax.swing.JButton();
+        ApproveBooking = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -189,6 +190,14 @@ private void loadAllReservationsToTable() {
         });
         jPanel4.add(Print, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 393, 130, 50));
 
+        ApproveBooking.setText("Approve");
+        ApproveBooking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ApproveBookingActionPerformed(evt);
+            }
+        });
+        jPanel4.add(ApproveBooking, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, 160, 40));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -240,6 +249,40 @@ private void loadAllReservationsToTable() {
         printer.printTable();
     }//GEN-LAST:event_PrintActionPerformed
 
+    private void ApproveBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApproveBookingActionPerformed
+        int selectedRow = jTable1.getSelectedRow();
+
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Please select a reservation to approve.", "No Selection", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    int reservationId = (int) jTable1.getValueAt(selectedRow, 0); // Assuming reservation ID is in the first column
+
+    String url = "jdbc:mysql://localhost:3306/booking";
+    String username = "root";
+    String password = "";
+
+    String updateSql = "UPDATE reservations SET status = 'approved' WHERE id = ?";
+
+    try (Connection conn = DriverManager.getConnection(url, username, password);
+         PreparedStatement pst = conn.prepareStatement(updateSql)) {
+
+        pst.setInt(1, reservationId);
+        int updated = pst.executeUpdate();
+
+        if (updated > 0) {
+            JOptionPane.showMessageDialog(this, "Reservation approved successfully.");
+            loadAllReservationsToTable(); 
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to approve reservation.", "Update Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Database Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_ApproveBookingActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -276,6 +319,7 @@ private void loadAllReservationsToTable() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ApproveBooking;
     private javax.swing.JButton Print;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
