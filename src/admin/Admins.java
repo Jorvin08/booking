@@ -45,8 +45,12 @@ public class Admins extends javax.swing.JFrame {
         header7 = new javax.swing.JPanel();
         AUsers = new javax.swing.JLabel();
         header6 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -140,10 +144,35 @@ public class Admins extends javax.swing.JFrame {
         header6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel9.add(header6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 140, 110));
 
+        jButton2.setText("Booked Hotels");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 200, 40));
+
+        jButton3.setText("Hotels");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 110, 200, 40));
+
+        jButton4.setText("Reservations");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 230, 200, 40));
+
         getContentPane().add(jPanel9);
         jPanel9.setBounds(0, 0, 670, 390);
 
-        setBounds(0, 0, 686, 429);
+        setSize(new java.awt.Dimension(686, 429));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel28MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MouseClicked
@@ -184,6 +213,24 @@ public class Admins extends javax.swing.JFrame {
        
         }
     }//GEN-LAST:event_formWindowActivated
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+      Hotels h =new Hotels();
+      h.setVisible(true);
+      this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       bookedHotels bh = new bookedHotels();
+       bh.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+       reservedbookings rb = new reservedbookings();
+       rb.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,6 +278,9 @@ public class Admins extends javax.swing.JFrame {
     private javax.swing.JPanel header6;
     private javax.swing.JPanel header7;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel28;

@@ -117,7 +117,7 @@ public class Login extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Berlin Sans FB", 1, 24)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("HOTEL BOOKING SYSTEM");
-        jPanel5.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 610, 40));
+        jPanel5.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 610, 30));
 
         jLabel25.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -127,9 +127,9 @@ public class Login extends javax.swing.JFrame {
                 jLabel25MouseClicked(evt);
             }
         });
-        jPanel5.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, 40, 40));
+        jPanel5.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, 40, 40));
 
-        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 670, 100));
+        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 820, 100));
 
         jPanel6.setBackground(new java.awt.Color(51, 51, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -137,7 +137,7 @@ public class Login extends javax.swing.JFrame {
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/481574694_951674000280200_1586957167296398184_n.jpg"))); // NOI18N
-        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-120, 60, 420, 370));
+        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-120, 60, 420, 410));
 
         jPanel3.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 270, 380));
 
@@ -202,7 +202,7 @@ public class Login extends javax.swing.JFrame {
         jPanel3.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 140, 20));
 
         getContentPane().add(jPanel3);
-        jPanel3.setBounds(97, 50, 629, 380);
+        jPanel3.setBounds(-3, 0, 820, 490);
 
         setSize(new java.awt.Dimension(831, 526));
         setLocationRelativeTo(null);
