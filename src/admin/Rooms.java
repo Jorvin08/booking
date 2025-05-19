@@ -1,7 +1,10 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package admin;
 
-import Config.PrintHelper;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,20 +13,22 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ *
+ * @author II
+ */
+public class Rooms extends javax.swing.JFrame {
 
-public class reservedbookings extends javax.swing.JFrame {
-
-
-    public reservedbookings() {
+    /**
+     * Creates new form Hotels
+     */
+    public Rooms() {
         initComponents();
-        loadAllReservationsToTable();
+        loadRoomsToTable();
     }
-private void loadAllReservationsToTable() {
-    String[] columnNames = {
-        "Reservation ID", "Room ID", "User ID", "Check-In", "Check-Out", "Guests",
-        "Room Type", "Special Requests", "Reservation Status"
-    };
-
+private void loadRoomsToTable() {
+    String[] columnNames = {"Room ID", "Hotel ID", "Room Number", "Room Type", "Price", "Status"};
+    
     DefaultTableModel model = new DefaultTableModel();
     model.setColumnIdentifiers(columnNames);
 
@@ -31,33 +36,27 @@ private void loadAllReservationsToTable() {
     String username = "root";
     String password = "";
 
-    String sql = "SELECT * FROM reserved_rooms";
+    String sql = "SELECT * FROM rooms";
 
     try (Connection conn = DriverManager.getConnection(url, username, password);
          PreparedStatement pst = conn.prepareStatement(sql);
          ResultSet rs = pst.executeQuery()) {
 
         while (rs.next()) {
-            int id = rs.getInt("id");
             int roomId = rs.getInt("room_id");
-            int userId = rs.getInt("user_id");
-            String checkIn = rs.getString("check_in_date");
-            String checkOut = rs.getString("check_out_date");
-            int guests = rs.getInt("num_guests");
+            int hotelId = rs.getInt("hotel_id");
+            String roomNumber = rs.getString("room_number");
             String roomType = rs.getString("room_type");
-            String requests = rs.getString("special_requests");
-            String status = rs.getString("reservation_status");
+            double price = rs.getDouble("price");
+            String status = rs.getString("status");
 
-            model.addRow(new Object[]{
-                id, roomId, userId, checkIn, checkOut, guests,
-                roomType, requests, status
-            });
+            model.addRow(new Object[]{roomId, hotelId, roomNumber, roomType, price, status});
         }
 
         jTable1.setModel(model);
 
     } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(this, "Error loading reservations: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Error loading rooms: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
     }
 }
 
@@ -76,15 +75,15 @@ private void loadAllReservationsToTable() {
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        Print = new javax.swing.JButton();
-        ApproveBooking = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -93,7 +92,7 @@ private void loadAllReservationsToTable() {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 51, 0));
-        jLabel1.setText("Reserved Hotels");
+        jLabel1.setText("Rooms");
 
         jButton2.setText("Back");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -124,18 +123,35 @@ private void loadAllReservationsToTable() {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1160, 70));
 
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
         jPanel3.setBackground(new java.awt.Color(102, 102, 102));
+
+        jButton1.setText("Add Room");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                .addGap(19, 19, 19))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 460, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(362, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 140, 460));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -159,122 +175,38 @@ private void loadAllReservationsToTable() {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 937, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 970, -1));
 
-        Print.setText("Print");
-        Print.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PrintActionPerformed(evt);
-            }
-        });
-        jPanel4.add(Print, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 393, 130, 50));
-
-        ApproveBooking.setText("Approve");
-        ApproveBooking.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ApproveBookingActionPerformed(evt);
-            }
-        });
-        jPanel4.add(ApproveBooking, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, 160, 40));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1160, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 1079, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 530, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 1020, 460));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       AddRoom ah = new AddRoom();
+       ah.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Admins aa = new Admins();
         aa.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void PrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintActionPerformed
-        int[] selectedRows = jTable1.getSelectedRows();
-
-        if (selectedRows.length == 0) {
-            JOptionPane.showMessageDialog(this, "Please select one or more rows to print.", "No Selection", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        PrintHelper printer = new PrintHelper(jTable1, selectedRows) {};
-        printer.printTable();
-    }//GEN-LAST:event_PrintActionPerformed
-
-    private void ApproveBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApproveBookingActionPerformed
- int selectedRow = jTable1.getSelectedRow();
-
-    if (selectedRow == -1) {
-        JOptionPane.showMessageDialog(this, "Please select a reservation to approve.", "No Selection", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    int reservationId = (int) jTable1.getValueAt(selectedRow, 0); // Reservation ID in first column
-
-    String url = "jdbc:mysql://localhost:3306/booking";
-    String username = "root";
-    String password = "";
-
-    // Update query to match new table and column names
-    String updateSql = "UPDATE reserved_rooms SET reservation_status = 'approved' WHERE id = ?";
-
-    try (Connection conn = DriverManager.getConnection(url, username, password);
-         PreparedStatement pst = conn.prepareStatement(updateSql)) {
-
-        pst.setInt(1, reservationId);
-        int updated = pst.executeUpdate();
-
-        if (updated > 0) {
-            JOptionPane.showMessageDialog(this, "Reservation approved successfully.");
-            loadAllReservationsToTable(); 
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to approve reservation.", "Update Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(this, "Database Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
-    }//GEN-LAST:event_ApproveBookingActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,27 +225,27 @@ private void loadAllReservationsToTable() {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(reservedbookings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Rooms.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(reservedbookings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Rooms.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(reservedbookings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Rooms.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(reservedbookings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Rooms.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new reservedbookings().setVisible(true);
+                new Rooms().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ApproveBooking;
-    private javax.swing.JButton Print;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

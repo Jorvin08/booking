@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package transactions;
 
 import Config.Session;
@@ -15,110 +11,102 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author II
- */
+
 public class reservationsandbookings extends javax.swing.JFrame {
 
-    /**
-     * Creates new form reservationsandbookings
-     */
+   
     public reservationsandbookings() {
         initComponents();
         loadMyBookedHotelsToTable();
-        loadMyReservedHotelsToTable();
+        loadRoomReservationsToTable();
     }
 private void loadMyBookedHotelsToTable() {
     String[] columnNames = {
-        "Booking ID", "Hotel Name", "Check-In", "Check-Out",
-        "Guests", "Room Type", "Requests", "Status"
+        "Booking ID", "Hotel Name", "Room No", "Room Type", "Check-In", "Check-Out",
+        "Guests", "Requests", "Status"
     };
-    
+
     DefaultTableModel model = new DefaultTableModel();
     model.setColumnIdentifiers(columnNames);
 
-    String url = "jdbc:mysql://localhost:3306/booking";
-    String username = "root";
-    String password = "";
+    String sql = "SELECT b.booking_id, h.hotel_name, r.room_number, r.room_type, " +
+                 "b.check_in_date, b.check_out_date, b.num_guests, b.special_requests, b.booking_status " +
+                 "FROM booked_rooms b " +
+                 "JOIN rooms r ON b.room_id = r.room_id " +
+                 "JOIN hotels h ON r.hotel_id = h.hotel_id " +
+                 "WHERE b.user_id = ? " +
+                 "ORDER BY b.booking_id DESC";
 
-    String sql = "SELECT b.booking_id, h.hotel_name, b.check_in_date, b.check_out_date, "
-               + "b.num_guests, b.room_type, b.special_requests, b.booking_status "
-               + "FROM booked_hotels b "
-               + "JOIN hotels h ON b.hotel_id = h.hotel_id "
-               + "WHERE b.user_id = ? "
-               + "ORDER BY b.booking_id DESC";
-
-    try (Connection conn = DriverManager.getConnection(url, username, password);
+    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/booking", "root", "");
          PreparedStatement pst = conn.prepareStatement(sql)) {
 
         pst.setInt(1, Session.getInstance().getId());
         ResultSet rs = pst.executeQuery();
 
         while (rs.next()) {
-            int bookingId = rs.getInt("booking_id");
-            String hotelName = rs.getString("hotel_name");
-            String checkIn = rs.getString("check_in_date");
-            String checkOut = rs.getString("check_out_date");
-            int guests = rs.getInt("num_guests");
-            String roomType = rs.getString("room_type");
-            String requests = rs.getString("special_requests");
-            String status = rs.getString("booking_status");
-
-            model.addRow(new Object[]{bookingId, hotelName, checkIn, checkOut, guests, roomType, requests, status});
+            model.addRow(new Object[]{
+                rs.getInt("booking_id"),
+                rs.getString("hotel_name"),
+                rs.getString("room_number"),
+                rs.getString("room_type"),
+                rs.getString("check_in_date"),
+                rs.getString("check_out_date"),
+                rs.getInt("num_guests"),
+                rs.getString("special_requests"),
+                rs.getString("booking_status")
+            });
         }
 
         jTable2.setModel(model);
 
     } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(this, "Error loading your bookings: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Error loading bookings: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
-private void loadMyReservedHotelsToTable() {
+
+private void loadRoomReservationsToTable() {
     String[] columnNames = {
-        "Reservation ID", "Hotel Name", "Check-In", "Check-Out",
-        "Guests", "Room Type", "Requests", "Status"
+        "Reservation ID", "User ID", "Hotel Name", "Room No", "Room Type",
+        "Check-In", "Check-Out", "Guests", "Requests", "Status"
     };
-    
+
     DefaultTableModel model = new DefaultTableModel();
     model.setColumnIdentifiers(columnNames);
 
-    String url = "jdbc:mysql://localhost:3306/booking";
-    String username = "root";
-    String password = "";
+    String sql = "SELECT r.reservation_id, r.user_id, h.hotel_name, rm.room_number, rm.room_type, " +
+                 "r.check_in_date, r.check_out_date, r.num_guests, r.special_requests, r.reservation_status " +
+                 "FROM reserved_rooms r " +
+                 "JOIN rooms rm ON r.room_id = rm.room_id " +
+                 "JOIN hotels h ON rm.hotel_id = h.hotel_id " +
+                 "ORDER BY r.reservation_id DESC";
 
-    String sql = "SELECT r.reservation_id, h.hotel_name, r.check_in_date, r.check_out_date, "
-               + "r.num_guests, r.room_type, r.special_requests, r.reservation_status "
-               + "FROM reserved_hotels r "
-               + "JOIN hotels h ON r.hotel_id = h.hotel_id "
-               + "WHERE r.user_id = ? "
-               + "ORDER BY r.reservation_id DESC";
-
-    try (Connection conn = DriverManager.getConnection(url, username, password);
-         PreparedStatement pst = conn.prepareStatement(sql)) {
-
-        pst.setInt(1, Session.getInstance().getId());
-        ResultSet rs = pst.executeQuery();
+    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/booking", "root", "");
+         PreparedStatement pst = conn.prepareStatement(sql);
+         ResultSet rs = pst.executeQuery()) {
 
         while (rs.next()) {
-            int reservationId = rs.getInt("reservation_id");
-            String hotelName = rs.getString("hotel_name");
-            String checkIn = rs.getString("check_in_date");
-            String checkOut = rs.getString("check_out_date");
-            int guests = rs.getInt("num_guests");
-            String roomType = rs.getString("room_type");
-            String requests = rs.getString("special_requests");
-            String status = rs.getString("reservation_status");
-
-            model.addRow(new Object[]{reservationId, hotelName, checkIn, checkOut, guests, roomType, requests, status});
+            model.addRow(new Object[] {
+                rs.getInt("reservation_id"),
+                rs.getInt("user_id"),
+                rs.getString("hotel_name"),
+                rs.getString("room_number"),
+                rs.getString("room_type"),
+                rs.getString("check_in_date"),
+                rs.getString("check_out_date"),
+                rs.getInt("num_guests"),
+                rs.getString("special_requests"),
+                rs.getString("reservation_status")
+            });
         }
 
         jTable1.setModel(model);
 
     } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(this, "Error loading your reservations: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Error loading room reservations: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
+
+
 
 
     /**

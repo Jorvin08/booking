@@ -9,9 +9,9 @@ package Users;
 import Config.Session;
 import LoginPage.Login;
 import javax.swing.JOptionPane;
-import transactions.bookhotel;
+import transactions.bookroom;
 import transactions.reservationsandbookings;
-import transactions.reservehotel;
+import transactions.reserveroom;
 
 /**
  *
@@ -166,7 +166,7 @@ public class User extends javax.swing.JFrame {
         });
         jPanel9.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 190, 50));
 
-        jButton3.setText("Book a hotel");
+        jButton3.setText("Book a Room");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -240,13 +240,13 @@ public class User extends javax.swing.JFrame {
     }//GEN-LAST:event_header11MouseEntered
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-      bookhotel bk = new bookhotel();
+      bookroom bk = new bookroom();
       bk.setVisible(true);
       this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       reservehotel rh = new reservehotel();
+       reserveroom rh = new reserveroom();
        rh.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed

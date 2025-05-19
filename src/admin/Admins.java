@@ -48,6 +48,8 @@ public class Admins extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -127,7 +129,6 @@ public class Admins extends javax.swing.JFrame {
         header7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         AUsers.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        AUsers.setForeground(new java.awt.Color(255, 255, 255));
         AUsers.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         AUsers.setText("Users");
         AUsers.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -144,21 +145,21 @@ public class Admins extends javax.swing.JFrame {
         header6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel9.add(header6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 140, 110));
 
-        jButton2.setText("Booked Hotels");
+        jButton2.setText("Booked Rooms");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel9.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 200, 40));
+        jPanel9.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 210, 200, 40));
 
-        jButton3.setText("Hotels");
+        jButton3.setText("Rooms");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel9.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 110, 200, 40));
+        jPanel9.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, 200, 40));
 
         jButton4.setText("Reservations");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -166,7 +167,23 @@ public class Admins extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel9.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 230, 200, 40));
+        jPanel9.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, 200, 40));
+
+        jButton5.setText("Hotels");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 150, 200, 40));
+
+        jButton6.setText("Logs");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 330, 200, 40));
 
         getContentPane().add(jPanel9);
         jPanel9.setBounds(0, 0, 670, 390);
@@ -215,13 +232,13 @@ public class Admins extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-      Hotels h =new Hotels();
+      Rooms h =new Rooms();
       h.setVisible(true);
       this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       bookedHotels bh = new bookedHotels();
+       bookedRooms bh = new bookedRooms();
        bh.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -231,6 +248,18 @@ public class Admins extends javax.swing.JFrame {
        rb.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+     Hotels h = new Hotels();
+     h.setVisible(true);
+     this.dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+     Logs l = new Logs();
+     l.setVisible(true);
+     this.dispose();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -281,6 +310,8 @@ public class Admins extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel28;

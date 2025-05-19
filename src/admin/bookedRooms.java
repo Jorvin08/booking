@@ -7,57 +7,59 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ *
+ * @author II
+ */
+public class bookedRooms extends javax.swing.JFrame {
 
-public class reservedbookings extends javax.swing.JFrame {
-
-
-    public reservedbookings() {
+    /**
+     * Creates new form bookedHotels
+     */
+    public bookedRooms() {
         initComponents();
-        loadAllReservationsToTable();
+       loadAllBookedRoomsToTable();
     }
-private void loadAllReservationsToTable() {
-    String[] columnNames = {
-        "Reservation ID", "Room ID", "User ID", "Check-In", "Check-Out", "Guests",
-        "Room Type", "Special Requests", "Reservation Status"
-    };
+private void loadAllBookedRoomsToTable() {
+    try {
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/booking", "root", "");
+        Statement stmt = conn.createStatement();
 
-    DefaultTableModel model = new DefaultTableModel();
-    model.setColumnIdentifiers(columnNames);
+        String sql = "SELECT br.booking_id, r.room_number, h.hotel_name, u.uname, br.check_in_date, br.check_out_date, " +
+                     "br.num_guests, r.room_type, br.special_requests, br.booking_status " +
+                     "FROM booked_rooms br " +
+                     "JOIN rooms r ON br.room_id = r.room_id " +
+                     "JOIN hotels h ON r.hotel_id = h.hotel_id " +
+                     "JOIN users u ON br.user_id = u.id " +
+                     "ORDER BY br.booking_id DESC";
 
-    String url = "jdbc:mysql://localhost:3306/booking";
-    String username = "root";
-    String password = "";
+        ResultSet rs = stmt.executeQuery(sql);
 
-    String sql = "SELECT * FROM reserved_rooms";
-
-    try (Connection conn = DriverManager.getConnection(url, username, password);
-         PreparedStatement pst = conn.prepareStatement(sql);
-         ResultSet rs = pst.executeQuery()) {
+        DefaultTableModel model = (DefaultTableModel) bookedTable.getModel();
+        model.setRowCount(0);
 
         while (rs.next()) {
-            int id = rs.getInt("id");
-            int roomId = rs.getInt("room_id");
-            int userId = rs.getInt("user_id");
+            int bookingId = rs.getInt("booking_id");
+            String roomNo = rs.getString("room_number");
+            String hotelName = rs.getString("hotel_name");
+            String bookedBy = rs.getString("uname");
             String checkIn = rs.getString("check_in_date");
             String checkOut = rs.getString("check_out_date");
             int guests = rs.getInt("num_guests");
             String roomType = rs.getString("room_type");
             String requests = rs.getString("special_requests");
-            String status = rs.getString("reservation_status");
+            String status = rs.getString("booking_status");
 
-            model.addRow(new Object[]{
-                id, roomId, userId, checkIn, checkOut, guests,
-                roomType, requests, status
-            });
+            model.addRow(new Object[]{bookingId, roomNo, hotelName, bookedBy, checkIn, checkOut, guests, roomType, requests, status});
         }
 
-        jTable1.setModel(model);
-
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(this, "Error loading reservations: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        conn.close();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error loading bookings: " + e.getMessage());
     }
 }
 
@@ -79,7 +81,7 @@ private void loadAllReservationsToTable() {
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        bookedTable = new javax.swing.JTable();
         Print = new javax.swing.JButton();
         ApproveBooking = new javax.swing.JButton();
 
@@ -93,7 +95,7 @@ private void loadAllReservationsToTable() {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 51, 0));
-        jLabel1.setText("Reserved Hotels");
+        jLabel1.setText("Booked Rooms");
 
         jButton2.setText("Back");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -142,7 +144,7 @@ private void loadAllReservationsToTable() {
 
         jPanel5.setBackground(new java.awt.Color(239, 237, 237));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        bookedTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null},
@@ -153,7 +155,7 @@ private void loadAllReservationsToTable() {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(bookedTable);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -230,49 +232,38 @@ private void loadAllReservationsToTable() {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void PrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintActionPerformed
-        int[] selectedRows = jTable1.getSelectedRows();
+     int[] selectedRows = bookedTable.getSelectedRows();
 
-        if (selectedRows.length == 0) {
-            JOptionPane.showMessageDialog(this, "Please select one or more rows to print.", "No Selection", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        PrintHelper printer = new PrintHelper(jTable1, selectedRows) {};
-        printer.printTable();
-    }//GEN-LAST:event_PrintActionPerformed
-
-    private void ApproveBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApproveBookingActionPerformed
- int selectedRow = jTable1.getSelectedRow();
-
-    if (selectedRow == -1) {
-        JOptionPane.showMessageDialog(this, "Please select a reservation to approve.", "No Selection", JOptionPane.WARNING_MESSAGE);
+    if (selectedRows.length == 0) {
+        JOptionPane.showMessageDialog(this, "Please select one or more rows to print.", "No Selection", JOptionPane.WARNING_MESSAGE);
         return;
     }
 
-    int reservationId = (int) jTable1.getValueAt(selectedRow, 0); // Reservation ID in first column
+    PrintHelper printer = new PrintHelper(bookedTable, selectedRows) {};
+    printer.printTable();
+    }//GEN-LAST:event_PrintActionPerformed
 
-    String url = "jdbc:mysql://localhost:3306/booking";
-    String username = "root";
-    String password = "";
+    private void ApproveBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApproveBookingActionPerformed
+     int row = bookedTable.getSelectedRow();
+    if (row == -1) {
+        JOptionPane.showMessageDialog(null, "Please select a booking to approve.");
+        return;
+    }
 
-    // Update query to match new table and column names
-    String updateSql = "UPDATE reserved_rooms SET reservation_status = 'approved' WHERE id = ?";
+    int bookingId = (int) bookedTable.getValueAt(row, 0);
 
-    try (Connection conn = DriverManager.getConnection(url, username, password);
-         PreparedStatement pst = conn.prepareStatement(updateSql)) {
+    try {
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_db", "root", "");
+        String sql = "UPDATE booked_rooms SET booking_status = 'approved' WHERE booking_id = ?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, bookingId);
+        pstmt.executeUpdate();
+        conn.close();
 
-        pst.setInt(1, reservationId);
-        int updated = pst.executeUpdate();
-
-        if (updated > 0) {
-            JOptionPane.showMessageDialog(this, "Reservation approved successfully.");
-            loadAllReservationsToTable(); 
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to approve reservation.", "Update Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(this, "Database Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Booking approved successfully.");
+        loadAllBookedRoomsToTable(); // reload table
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error approving booking: " + e.getMessage());
     }
     }//GEN-LAST:event_ApproveBookingActionPerformed
 
@@ -293,20 +284,21 @@ private void loadAllReservationsToTable() {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(reservedbookings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(bookedRooms.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(reservedbookings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(bookedRooms.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(reservedbookings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(bookedRooms.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(reservedbookings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(bookedRooms.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new reservedbookings().setVisible(true);
+                new bookedRooms().setVisible(true);
             }
         });
     }
@@ -314,6 +306,7 @@ private void loadAllReservationsToTable() {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ApproveBooking;
     private javax.swing.JButton Print;
+    private javax.swing.JTable bookedTable;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -322,6 +315,5 @@ private void loadAllReservationsToTable() {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

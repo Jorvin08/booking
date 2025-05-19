@@ -14,59 +14,62 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  *
  * @author II
  */
-public class bookhotel extends javax.swing.JFrame {
+public class bookroom extends javax.swing.JFrame {
 
     /**
      * Creates new form bookhotel
      */
-    public bookhotel() {
+    public bookroom() {
         initComponents();
-        loadHotelsToTable();
+       loadAllRoomsToTable();
     }
-private void loadHotelsToTable() {
-   
-    String[] columnNames = {"Hotel ID", "Name", "Address", "City", "State", "Zip", "Country", "Phone", "Email", "Rating", "Description"};
-    
+private void loadAllRoomsToTable() {
+    String[] columnNames = {
+        "Room ID", "Hotel Name", "Room Number", "Room Type", "Price", "Room Status"
+    };
+
     DefaultTableModel model = new DefaultTableModel();
     model.setColumnIdentifiers(columnNames);
 
     String url = "jdbc:mysql://localhost:3306/booking";
     String username = "root";
-    String password = "";     
+    String password = "";
 
-    String sql = "SELECT * FROM hotels";
+    String sql = "SELECT r.room_id, h.hotel_name, r.room_number, r.room_type, r.price, r.status " +
+                 "FROM rooms r " +
+                 "JOIN hotels h ON r.hotel_id = h.hotel_id " +
+                 "ORDER BY r.room_id DESC";
 
     try (Connection conn = DriverManager.getConnection(url, username, password);
          PreparedStatement pst = conn.prepareStatement(sql);
          ResultSet rs = pst.executeQuery()) {
 
         while (rs.next()) {
-            int id = rs.getInt("hotel_id");
-            String name = rs.getString("hotel_name");
-            String address = rs.getString("address");
-            String city = rs.getString("city");
-            String state = rs.getString("state");
-            String zip = rs.getString("zip_code");
-            String country = rs.getString("country");
-            String phone = rs.getString("phone_number");
-            String email = rs.getString("email");
-            double rating = rs.getDouble("star_rating");
-            String description = rs.getString("description");
-
-            model.addRow(new Object[]{id, name, address, city, state, zip, country, phone, email, rating, description});
+            model.addRow(new Object[]{
+                rs.getInt("room_id"),
+                rs.getString("hotel_name"),
+                rs.getString("room_number"),
+                rs.getString("room_type"),
+                rs.getDouble("price"),
+                rs.getString("status")
+            });
         }
 
         jTable1.setModel(model);
 
     } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(this, "Error loading hotels: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Error loading room data: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
     }
 }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,7 +86,7 @@ private void loadHotelsToTable() {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        Bookhotel = new javax.swing.JButton();
+        Bookroom = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -98,7 +101,7 @@ private void loadHotelsToTable() {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel1.setText("Book a hotel");
+        jLabel1.setText("Book a ROOM");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
 
         jButton2.setText("Back");
@@ -142,13 +145,13 @@ private void loadHotelsToTable() {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 840, 380));
 
-        Bookhotel.setText("Book");
-        Bookhotel.addActionListener(new java.awt.event.ActionListener() {
+        Bookroom.setText("Book");
+        Bookroom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BookhotelActionPerformed(evt);
+                BookroomActionPerformed(evt);
             }
         });
-        jPanel1.add(Bookhotel, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 450, 120, 41));
+        jPanel1.add(Bookroom, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 450, 120, 41));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -165,34 +168,72 @@ private void loadHotelsToTable() {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BookhotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookhotelActionPerformed
-    int selectedRow = jTable1.getSelectedRow();
+    private void BookroomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookroomActionPerformed
+   int selectedRow = jTable1.getSelectedRow();
 
     if (selectedRow == -1) {
-        JOptionPane.showMessageDialog(this, "Please select a hotel to book.", "No Selection", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Please select a room to book.", "No Selection", JOptionPane.WARNING_MESSAGE);
         return;
     }
 
-    int hotelId = (int) jTable1.getValueAt(selectedRow, 0); 
+    int roomId = (int) jTable1.getValueAt(selectedRow, 0);
 
-    String checkIn = JOptionPane.showInputDialog(this, "Enter Check-In Date (YYYY-MM-DD):");
-    String checkOut = JOptionPane.showInputDialog(this, "Enter Check-Out Date (YYYY-MM-DD):");
-    String guestStr = JOptionPane.showInputDialog(this, "Enter Number of Guests:");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate today = LocalDate.now();
+    LocalDate checkInDate = null, checkOutDate = null;
+    int numGuests = 0;
 
-    if (checkIn == null || checkOut == null || guestStr == null || checkIn.isEmpty() || checkOut.isEmpty() || guestStr.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Please provide all booking details.", "Input Error", JOptionPane.ERROR_MESSAGE);
-        return;
+    // Ask and validate check-in date
+    while (true) {
+        String checkIn = JOptionPane.showInputDialog(this, "Enter Check-In Date (YYYY-MM-DD):");
+        if (checkIn == null) return;
+
+        try {
+            checkInDate = LocalDate.parse(checkIn, formatter);
+            if (checkInDate.isBefore(today)) {
+                JOptionPane.showMessageDialog(this, "Check-in date cannot be in the past.", "Date Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                break;
+            }
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this, "Invalid check-in date format. Use YYYY-MM-DD.", "Format Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
-    int numGuests;
-    try {
-        numGuests = Integer.parseInt(guestStr);
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Invalid number of guests.", "Input Error", JOptionPane.ERROR_MESSAGE);
-        return;
+    // Ask and validate check-out date
+    while (true) {
+        String checkOut = JOptionPane.showInputDialog(this, "Enter Check-Out Date (YYYY-MM-DD):");
+        if (checkOut == null) return;
+
+        try {
+            checkOutDate = LocalDate.parse(checkOut, formatter);
+            if (!checkOutDate.isAfter(checkInDate)) {
+                JOptionPane.showMessageDialog(this, "Check-out date must be after check-in date.", "Date Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                break;
+            }
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this, "Invalid check-out date format. Use YYYY-MM-DD.", "Format Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
-    String roomType = "Default";
+    // Ask and validate number of guests
+    while (true) {
+        String guestStr = JOptionPane.showInputDialog(this, "Enter Number of Guests:");
+        if (guestStr == null) return;
+
+        try {
+            numGuests = Integer.parseInt(guestStr);
+            if (numGuests <= 0) {
+                JOptionPane.showMessageDialog(this, "Number of guests must be greater than 0.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                break;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Invalid number of guests.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     String specialRequests = "None";
 
     String url = "jdbc:mysql://localhost:3306/booking";
@@ -201,14 +242,14 @@ private void loadHotelsToTable() {
 
     try (Connection conn = DriverManager.getConnection(url, username, password)) {
 
-        
-        String checkSql = "SELECT COUNT(*) FROM booked_hotels WHERE hotel_id = ? AND booking_status IN ('pending', 'approved') "
+        // Check if room already booked or reserved
+        String checkSql = "SELECT COUNT(*) FROM booked_rooms WHERE room_id = ? AND booking_status IN ('pending', 'approved') "
                         + "UNION ALL "
-                        + "SELECT COUNT(*) FROM reserved_hotels WHERE hotel_id = ? AND reservation_status IN ('pending', 'approved')";
+                        + "SELECT COUNT(*) FROM reserved_rooms WHERE room_id = ? AND reservation_status IN ('pending', 'approved')";
 
         try (PreparedStatement checkPst = conn.prepareStatement(checkSql)) {
-            checkPst.setInt(1, hotelId);
-            checkPst.setInt(2, hotelId);
+            checkPst.setInt(1, roomId);
+            checkPst.setInt(2, roomId);
 
             ResultSet rs = checkPst.executeQuery();
             int totalConflicts = 0;
@@ -217,27 +258,33 @@ private void loadHotelsToTable() {
             }
 
             if (totalConflicts > 0) {
-                JOptionPane.showMessageDialog(this, "This hotel is already booked or reserved.", "Booking Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "This room is already booked or reserved.", "Booking Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
 
-       
-        String insertSql = "INSERT INTO booked_hotels (hotel_id, user_id, check_in_date, check_out_date, num_guests, room_type, special_requests, booking_status) "
-                         + "VALUES (?, ?, ?, ?, ?, ?, ?, 'pending')";
+        // Insert new room booking
+        String insertSql = "INSERT INTO booked_rooms (room_id, user_id, check_in_date, check_out_date, num_guests, special_requests, booking_status) "
+                         + "VALUES (?, ?, ?, ?, ?, ?, 'pending')";
 
         try (PreparedStatement pst = conn.prepareStatement(insertSql)) {
-            pst.setInt(1, hotelId);
+            pst.setInt(1, roomId);
             pst.setInt(2, Session.getInstance().getId());
-            pst.setString(3, checkIn);
-            pst.setString(4, checkOut);
+            pst.setString(3, checkInDate.toString());
+            pst.setString(4, checkOutDate.toString());
             pst.setInt(5, numGuests);
-            pst.setString(6, roomType);
-            pst.setString(7, specialRequests);
+            pst.setString(6, specialRequests);
 
             int result = pst.executeUpdate();
             if (result > 0) {
-                JOptionPane.showMessageDialog(this, "Hotel booking submitted successfully. Waiting for admin approval.");
+                // Set room status to 'not available'
+                String updateStatusSql = "UPDATE rooms SET status = 'not available' WHERE room_id = ?";
+                try (PreparedStatement updatePst = conn.prepareStatement(updateStatusSql)) {
+                    updatePst.setInt(1, roomId);
+                    updatePst.executeUpdate();
+                }
+
+                JOptionPane.showMessageDialog(this, "Room booking submitted successfully. Waiting for admin approval.");
             } else {
                 JOptionPane.showMessageDialog(this, "Booking failed.", "Insert Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -246,7 +293,7 @@ private void loadHotelsToTable() {
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(this, "Database Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-    }//GEN-LAST:event_BookhotelActionPerformed
+    }//GEN-LAST:event_BookroomActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         User aa = new User();
@@ -271,26 +318,27 @@ private void loadHotelsToTable() {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(bookhotel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(bookroom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(bookhotel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(bookroom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(bookhotel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(bookroom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(bookhotel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(bookroom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new bookhotel().setVisible(true);
+                new bookroom().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Bookhotel;
+    private javax.swing.JButton Bookroom;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
