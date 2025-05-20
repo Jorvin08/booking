@@ -8,7 +8,9 @@ package Users;
 
 import Config.Session;
 import LoginPage.Login;
+import java.sql.Connection;
 import javax.swing.JOptionPane;
+import transactions.AvailableRooms;
 import transactions.bookroom;
 import transactions.reservationsandbookings;
 import transactions.reserveroom;
@@ -21,7 +23,9 @@ public class User extends javax.swing.JFrame {
 
     /** Creates new form User */
     public User() {
+        setUndecorated(true);
         initComponents();
+        
     }
 
     /** This method is called from within the constructor to
@@ -70,8 +74,8 @@ public class User extends javax.swing.JFrame {
 
         jLabel16.setFont(new java.awt.Font("Berlin Sans FB", 1, 24)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("BOOKING USERS DASHBOARD");
-        jPanel10.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 610, 40));
+        jLabel16.setText("USER DASHBOARD");
+        jPanel10.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 610, 40));
 
         jLabel28.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -81,15 +85,17 @@ public class User extends javax.swing.JFrame {
                 jLabel28MouseClicked(evt);
             }
         });
-        jPanel10.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 50, 40));
+        jPanel10.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 0, 50, 40));
 
-        jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 60));
+        jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 60));
 
         jPanel11.setBackground(new java.awt.Color(204, 0, 0));
         jPanel11.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("Back");
+        jButton1.setBackground(new java.awt.Color(102, 255, 255));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton1.setText("Logout");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -105,12 +111,12 @@ public class User extends javax.swing.JFrame {
         Acc_lname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Acc_lname.setText("FirstName");
         Acc_lname.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        header14.add(Acc_lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 140, 30));
+        header14.add(Acc_lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 140, 30));
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/gwwapo-removebg-preview.png"))); // NOI18N
         jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        header14.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 140, 80));
+        header14.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -10, 140, 80));
 
         Acc_fname.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Acc_fname.setForeground(new java.awt.Color(255, 255, 255));
@@ -141,7 +147,7 @@ public class User extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/gwwapo-removebg-preview.png"))); // NOI18N
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         header11.add(jLabel3);
-        jLabel3.setBounds(10, 0, 100, 80);
+        jLabel3.setBounds(10, 10, 100, 60);
 
         Ausers2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         Ausers2.setForeground(new java.awt.Color(255, 255, 255));
@@ -156,52 +162,72 @@ public class User extends javax.swing.JFrame {
         header11.add(Ausers2);
         Ausers2.setBounds(10, 70, 100, 30);
 
-        jPanel9.add(header11, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 120, 100));
+        jPanel9.add(header11, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 120, 100));
 
+        jButton2.setBackground(new java.awt.Color(102, 255, 255));
+        jButton2.setFont(new java.awt.Font("Georgia", 3, 18)); // NOI18N
         jButton2.setText("Your bookings & reservations");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel9.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 190, 50));
+        jPanel9.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 250, 340, 50));
 
+        jButton3.setBackground(new java.awt.Color(102, 255, 255));
+        jButton3.setFont(new java.awt.Font("Georgia", 3, 18)); // NOI18N
         jButton3.setText("Book a Room");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel9.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 120, 190, 50));
+        jPanel9.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 110, 190, 50));
 
+        jButton4.setBackground(new java.awt.Color(102, 255, 255));
+        jButton4.setFont(new java.awt.Font("Georgia", 3, 18)); // NOI18N
         jButton4.setText("Make reservation");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel9.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 190, 50));
+        jPanel9.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 180, 230, 50));
 
-        jButton5.setText("jButton2");
-        jPanel9.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 190, 50));
+        jButton5.setBackground(new java.awt.Color(102, 255, 255));
+        jButton5.setFont(new java.awt.Font("Georgia", 3, 18)); // NOI18N
+        jButton5.setText("Available Rooms");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, 430, 50));
 
         getContentPane().add(jPanel9);
-        jPanel9.setBounds(0, 0, 670, 390);
+        jPanel9.setBounds(0, 0, 880, 420);
 
-        setSize(new java.awt.Dimension(686, 429));
+        setSize(new java.awt.Dimension(846, 429));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel28MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MouseClicked
-        // TODO add your handling code here:
+     
         this.dispose();
     }//GEN-LAST:event_jLabel28MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+  int confirm = javax.swing.JOptionPane.showConfirmDialog(
+        this, "Are you sure you want to logout?", "Logout Confirmation",
+        javax.swing.JOptionPane.YES_NO_OPTION);
+
+    if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+
+        this.dispose();       
         Login login = new Login();
         login.setVisible(true);
         this.dispose();
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -256,6 +282,12 @@ public class User extends javax.swing.JFrame {
        rrsb.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        AvailableRooms rr = new AvailableRooms();
+        rr.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments

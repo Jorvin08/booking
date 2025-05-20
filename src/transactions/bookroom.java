@@ -28,8 +28,10 @@ public class bookroom extends javax.swing.JFrame {
      * Creates new form bookhotel
      */
     public bookroom() {
+        setUndecorated(true);
         initComponents();
        loadAllRoomsToTable();
+       
     }
 private void loadAllRoomsToTable() {
     String[] columnNames = {
@@ -104,6 +106,8 @@ private void loadAllRoomsToTable() {
         jLabel1.setText("Book a ROOM");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
 
+        jButton2.setBackground(new java.awt.Color(102, 255, 255));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton2.setText("Back");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,6 +118,8 @@ private void loadAllRoomsToTable() {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 60));
 
+        jTable1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTable1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -145,6 +151,8 @@ private void loadAllRoomsToTable() {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 840, 380));
 
+        Bookroom.setBackground(new java.awt.Color(102, 255, 255));
+        Bookroom.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Bookroom.setText("Book");
         Bookroom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -284,7 +292,7 @@ private void loadAllRoomsToTable() {
                     updatePst.executeUpdate();
                 }
 
-                JOptionPane.showMessageDialog(this, "Room booking submitted successfully. Waiting for admin approval.");
+                JOptionPane.showMessageDialog(this, "Room booking submitted successfully.Please pay at the front desk and Wait for admin approval.");
             } else {
                 JOptionPane.showMessageDialog(this, "Booking failed.", "Insert Error", JOptionPane.ERROR_MESSAGE);
             }

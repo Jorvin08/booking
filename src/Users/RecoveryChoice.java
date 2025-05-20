@@ -19,6 +19,7 @@ public class RecoveryChoice extends javax.swing.JFrame {
      */
     public RecoveryChoice() {
         initComponents();
+        setUndecorated(true);
     }
 
     /**

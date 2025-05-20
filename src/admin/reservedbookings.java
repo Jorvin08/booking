@@ -1,7 +1,9 @@
 
 package admin;
 
-import Config.PrintHelper;
+import Config.PDFExporter;
+import LoginPage.Login;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,9 +16,11 @@ import javax.swing.table.DefaultTableModel;
 public class reservedbookings extends javax.swing.JFrame {
 
 
-    public reservedbookings() {
+    public reservedbookings() { setUndecorated(true);
+        
         initComponents();
         loadAllReservationsToTable();
+       
     }
 private void loadAllReservationsToTable() {
     String[] columnNames = {
@@ -31,14 +35,17 @@ private void loadAllReservationsToTable() {
     String username = "root";
     String password = "";
 
-    String sql = "SELECT * FROM reserved_rooms";
+    String sql = "SELECT r.reservation_id, r.room_id, r.user_id, r.check_in_date, r.check_out_date, " +
+                 "r.num_guests, ro.room_type, r.special_requests, r.reservation_status " +
+                 "FROM reserved_rooms r " +
+                 "JOIN rooms ro ON r.room_id = ro.room_id";
 
     try (Connection conn = DriverManager.getConnection(url, username, password);
          PreparedStatement pst = conn.prepareStatement(sql);
          ResultSet rs = pst.executeQuery()) {
 
         while (rs.next()) {
-            int id = rs.getInt("id");
+            int id = rs.getInt("reservation_id");
             int roomId = rs.getInt("room_id");
             int userId = rs.getInt("user_id");
             String checkIn = rs.getString("check_in_date");
@@ -62,6 +69,7 @@ private void loadAllReservationsToTable() {
 }
 
 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -75,6 +83,8 @@ private void loadAllReservationsToTable() {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -93,12 +103,32 @@ private void loadAllReservationsToTable() {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 51, 0));
-        jLabel1.setText("Reserved Hotels");
+        jLabel1.setText("Reserved Rooms");
 
+        jButton2.setBackground(new java.awt.Color(102, 255, 255));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton2.setText("Back");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(102, 255, 255));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jButton1.setText("Logout");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setBackground(new java.awt.Color(102, 255, 255));
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton3.setText("Back");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -108,18 +138,31 @@ private void loadAllReservationsToTable() {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(527, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1160, 70));
@@ -142,15 +185,17 @@ private void loadAllReservationsToTable() {
 
         jPanel5.setBackground(new java.awt.Color(239, 237, 237));
 
+        jTable1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTable1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -174,6 +219,8 @@ private void loadAllReservationsToTable() {
 
         jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 970, -1));
 
+        Print.setBackground(new java.awt.Color(102, 255, 255));
+        Print.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Print.setText("Print");
         Print.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,6 +229,8 @@ private void loadAllReservationsToTable() {
         });
         jPanel4.add(Print, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 393, 130, 50));
 
+        ApproveBooking.setBackground(new java.awt.Color(102, 255, 255));
+        ApproveBooking.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         ApproveBooking.setText("Approve");
         ApproveBooking.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,15 +279,15 @@ private void loadAllReservationsToTable() {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void PrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintActionPerformed
-        int[] selectedRows = jTable1.getSelectedRows();
+    int[] selectedRows = jTable1.getSelectedRows();
 
-        if (selectedRows.length == 0) {
-            JOptionPane.showMessageDialog(this, "Please select one or more rows to print.", "No Selection", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+    if (selectedRows.length == 0) {
+        JOptionPane.showMessageDialog(this, "Please select one or more rows to export.", "No Selection", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
 
-        PrintHelper printer = new PrintHelper(jTable1, selectedRows) {};
-        printer.printTable();
+    // Call the PDF exporter
+    PDFExporter.exportSelectedRowsToPDF(jTable1, selectedRows);
     }//GEN-LAST:event_PrintActionPerformed
 
     private void ApproveBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApproveBookingActionPerformed
@@ -276,6 +325,27 @@ private void loadAllReservationsToTable() {
     }
     }//GEN-LAST:event_ApproveBookingActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(
+            this, "Are you sure you want to logout?", "Logout Confirmation",
+            javax.swing.JOptionPane.YES_NO_OPTION);
+
+        if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+
+            this.dispose();
+            Login login = new Login();
+            login.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+      bookedRooms rr = new bookedRooms();
+      rr.setVisible(true);
+      rr.ApproveBooking.setEnabled(false);
+      this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -312,9 +382,11 @@ private void loadAllReservationsToTable() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ApproveBooking;
+    public javax.swing.JButton ApproveBooking;
     private javax.swing.JButton Print;
-    private javax.swing.JButton jButton2;
+    public javax.swing.JButton jButton1;
+    public javax.swing.JButton jButton2;
+    public javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

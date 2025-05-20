@@ -15,6 +15,7 @@ private Connection connect;
     
     public ForgotPassword() {
         initComponents();
+        setUndecorated(true);
         DbConnect();
     }
  private void DbConnect() {

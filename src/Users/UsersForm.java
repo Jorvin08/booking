@@ -38,8 +38,10 @@ public class UsersForm extends javax.swing.JFrame {
      * 
      */
     public UsersForm() {
+         setUndecorated(true);
         initComponents();
         displayData();
+       
     }
       Color nc=new Color( 0,0,153);
        Color hc=new Color(77,85,204);
@@ -309,9 +311,9 @@ public static int getHeightFromWidth(String imagePath, int desiredWidth) {
         jPanel9.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 500, 310));
 
         getContentPane().add(jPanel9);
-        jPanel9.setBounds(41, 33, 670, 390);
+        jPanel9.setBounds(0, 0, 730, 420);
 
-        setSize(new java.awt.Dimension(769, 495));
+        setSize(new java.awt.Dimension(684, 430));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

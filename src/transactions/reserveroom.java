@@ -24,8 +24,10 @@ public class reserveroom extends javax.swing.JFrame {
      * Creates new form reservehotel
      */
     public reserveroom() {
+        setUndecorated(true);
         initComponents();
        loadRoomsToTable() ;
+       
     }
 private void loadRoomsToTable() {
     String[] columnNames = {"Room ID", "Hotel Name", "Room Number", "Room Type", "Price", "Status", "Rating"};
@@ -93,6 +95,8 @@ private void loadRoomsToTable() {
         jLabel1.setText("Reserve a room");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
 
+        jButton2.setBackground(new java.awt.Color(102, 255, 255));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton2.setText("Back");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,6 +107,8 @@ private void loadRoomsToTable() {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 60));
 
+        jTable1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTable1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -134,6 +140,8 @@ private void loadRoomsToTable() {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 840, 380));
 
+        Reserve.setBackground(new java.awt.Color(102, 255, 255));
+        Reserve.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Reserve.setText("Reserve");
         Reserve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,7 +186,7 @@ private void loadRoomsToTable() {
     LocalDate checkInDate = null, checkOutDate = null;
     int numGuests = 0;
 
-    // Step 1: Ask for valid check-in date
+
     while (true) {
         String checkIn = JOptionPane.showInputDialog(this, "Enter Check-In Date (YYYY-MM-DD):");
         if (checkIn == null) return;
@@ -195,7 +203,7 @@ private void loadRoomsToTable() {
         }
     }
 
-    // Step 2: Ask for valid check-out date
+  
     while (true) {
         String checkOut = JOptionPane.showInputDialog(this, "Enter Check-Out Date (YYYY-MM-DD):");
         if (checkOut == null) return;
@@ -212,7 +220,7 @@ private void loadRoomsToTable() {
         }
     }
 
-    // Step 3: Ask for valid number of guests
+  
     while (true) {
         String guestStr = JOptionPane.showInputDialog(this, "Enter Number of Guests:");
         if (guestStr == null) return;
@@ -237,7 +245,7 @@ private void loadRoomsToTable() {
 
     try (Connection conn = DriverManager.getConnection(url, username, password)) {
 
-        // Check for conflicts
+     
         String checkSql = "SELECT COUNT(*) FROM booked_rooms WHERE room_id = ? AND booking_status IN ('pending', 'approved') "
                         + "UNION ALL "
                         + "SELECT COUNT(*) FROM reserved_rooms WHERE room_id = ? AND reservation_status IN ('pending', 'approved')";
@@ -258,7 +266,7 @@ private void loadRoomsToTable() {
             }
         }
 
-        // Insert reservation
+     
         String insertSql = "INSERT INTO reserved_rooms (room_id, user_id, check_in_date, check_out_date, num_guests, special_requests, reservation_status) "
                          + "VALUES (?, ?, ?, ?, ?, ?, 'pending')";
 
@@ -272,14 +280,14 @@ private void loadRoomsToTable() {
 
             int result = pst.executeUpdate();
             if (result > 0) {
-                // Update room status
+               
                 String updateStatusSql = "UPDATE rooms SET status = 'not available' WHERE room_id = ?";
                 try (PreparedStatement updatePst = conn.prepareStatement(updateStatusSql)) {
                     updatePst.setInt(1, roomId);
                     updatePst.executeUpdate();
                 }
 
-                JOptionPane.showMessageDialog(this, "Room reservation submitted successfully. Waiting for admin approval.");
+                JOptionPane.showMessageDialog(this, "Room reservation submitted successfully.Please pay at the front desk and Wait for admin approval.");
             } else {
                 JOptionPane.showMessageDialog(this, "Reservation failed.", "Insert Error", JOptionPane.ERROR_MESSAGE);
             }

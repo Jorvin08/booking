@@ -17,8 +17,10 @@ public class Logs extends javax.swing.JFrame {
      * Creates new form Logs
      */
     public Logs() {
+         setUndecorated(true);
         initComponents();
         loadFunctionLogsToTable();
+       
         
     }
 private void loadFunctionLogsToTable() {
@@ -76,6 +78,8 @@ private void loadFunctionLogsToTable() {
         jLabel1.setForeground(new java.awt.Color(204, 51, 0));
         jLabel1.setText("Logs");
 
+        jButton2.setBackground(new java.awt.Color(102, 255, 255));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton2.setText("Back");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,8 +93,8 @@ private void loadFunctionLogsToTable() {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(527, Short.MAX_VALUE))
         );
@@ -123,6 +127,8 @@ private void loadFunctionLogsToTable() {
 
         jPanel5.setBackground(new java.awt.Color(239, 237, 237));
 
+        jTable1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTable1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -131,7 +137,7 @@ private void loadFunctionLogsToTable() {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Log ID", "User ID", "Action", "Time performed"
             }
         ));
         jScrollPane1.setViewportView(jTable1);

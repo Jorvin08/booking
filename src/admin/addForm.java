@@ -27,7 +27,9 @@ public class addForm extends javax.swing.JFrame {
 
     
     public addForm() {
+        setUndecorated(true);
         initComponents();
+        
     }
     public String destination;
    File selectedFile;
@@ -484,9 +486,9 @@ public static int getHeightFromWidth(String imagePath, int desiredWidth) {
         jPanel9.add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 330, -1, -1));
 
         getContentPane().add(jPanel9);
-        jPanel9.setBounds(39, 47, 980, 380);
+        jPanel9.setBounds(0, 0, 980, 380);
 
-        setSize(new java.awt.Dimension(1069, 530));
+        setSize(new java.awt.Dimension(994, 420));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

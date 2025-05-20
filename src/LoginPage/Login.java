@@ -12,6 +12,7 @@ import Config.passwordHasher;
 import Users.ForgotPassword;
 import Users.User;
 import admin.Admins;
+import admin.bookedRooms;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,6 +29,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        setUndecorated(true);
     }
     
     static String status;
@@ -104,7 +106,7 @@ public class Login extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(new java.awt.Color(102, 204, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -117,7 +119,7 @@ public class Login extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Berlin Sans FB", 1, 24)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("HOTEL BOOKING SYSTEM");
-        jPanel5.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 610, 30));
+        jPanel5.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 610, 30));
 
         jLabel25.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -127,9 +129,9 @@ public class Login extends javax.swing.JFrame {
                 jLabel25MouseClicked(evt);
             }
         });
-        jPanel5.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, 40, 40));
+        jPanel5.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 0, 40, 40));
 
-        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 820, 100));
+        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 60));
 
         jPanel6.setBackground(new java.awt.Color(51, 51, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -137,7 +139,7 @@ public class Login extends javax.swing.JFrame {
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/481574694_951674000280200_1586957167296398184_n.jpg"))); // NOI18N
-        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-120, 60, 420, 410));
+        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-120, 60, 420, 330));
 
         jPanel3.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 270, 380));
 
@@ -149,7 +151,7 @@ public class Login extends javax.swing.JFrame {
                 jLabel22MouseClicked(evt);
             }
         });
-        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 320, 230, 30));
+        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 300, 230, 30));
 
         uname.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         uname.addActionListener(new java.awt.event.ActionListener() {
@@ -157,40 +159,41 @@ public class Login extends javax.swing.JFrame {
                 unameActionPerformed(evt);
             }
         });
-        jPanel3.add(uname, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 190, 30));
+        jPanel3.add(uname, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 160, 190, 30));
 
         jLabel23.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel23.setText("Username:");
-        jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 70, -1));
+        jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 170, 70, -1));
 
         jLabel24.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel24.setText("Password:");
-        jPanel3.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, 70, -1));
+        jPanel3.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 220, 70, -1));
 
         jLabel12.setFont(new java.awt.Font("Berlin Sans FB", 1, 24)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("LOGIN PAGE");
-        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 350, 40));
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, 350, 40));
 
         pname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pnameActionPerformed(evt);
             }
         });
-        jPanel3.add(pname, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 220, 190, 30));
+        jPanel3.add(pname, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, 190, 30));
 
         login.setBackground(new java.awt.Color(0, 255, 255));
         login.setText("Login");
+        login.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginActionPerformed(evt);
             }
         });
-        jPanel3.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 270, 80, -1));
+        jPanel3.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 270, 80, -1));
 
-        jLabel26.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel26.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(102, 102, 255));
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel26.setText("Forgot password");
@@ -199,37 +202,45 @@ public class Login extends javax.swing.JFrame {
                 jLabel26MouseClicked(evt);
             }
         });
-        jPanel3.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 140, 20));
+        jPanel3.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 240, -1, 10));
 
-        getContentPane().add(jPanel3);
-        jPanel3.setBounds(-3, 0, 820, 490);
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-3, 0, 910, 410));
 
-        setSize(new java.awt.Dimension(831, 526));
+        setSize(new java.awt.Dimension(859, 394));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
         
         if(loging_in(uname.getText(), pname.getText())){
-            if(!status.equals("Active")){
-                JOptionPane.showMessageDialog(null, "In-Active Account, Contact the Admin!");
-            }else{
-                JOptionPane.showMessageDialog(null, "Login Successfully!");
+        if(!status.equals("Active")){
+            JOptionPane.showMessageDialog(null, "In-Active Account, Contact the Admin!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Login Successfully!");
+
+            Logs.logFunctionCall(uname.getText() + " logged in successfully");
+
+            if(type.equals("Admin")){
+                Admins usf= new Admins();
+                usf.setVisible(true);
+                this.dispose();
+            } else if(type.equals("Receptionist")){
+                bookedRooms user = new bookedRooms();
                 
-                 Logs.logFunctionCall(uname.getText() + " logged in successfully");
-                if(type.equals("Admin")){
-                    Admins usf= new Admins();
-                    usf.setVisible(true);
-                    this.dispose();
-                }else{
-                    User user = new User();
-                    user.setVisible(true);
-                    this.dispose();
-                }
+                user.setVisible(true);
+                user.ApproveBooking.setEnabled(false);
+                user.jButton2.setEnabled(false);
+                this.dispose();
+            } else if(type.equals("Client")){
+                User user = new User();
+                user.setVisible(true);
+                this.dispose();
             }
-        }else{
-            JOptionPane.showMessageDialog(null, "Login Unsuccesfull!");
         }
+    } else {
+        JOptionPane.showMessageDialog(null, "Login Unsuccessful!");
+    }
+           
     }//GEN-LAST:event_loginActionPerformed
 
     private void pnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pnameActionPerformed

@@ -20,6 +20,7 @@ public class Admins extends javax.swing.JFrame {
     /** Creates new form User */
     public Admins() {
         initComponents();
+        setUndecorated(true);
     }
 
     /** This method is called from within the constructor to
@@ -82,13 +83,15 @@ public class Admins extends javax.swing.JFrame {
         });
         jPanel10.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 50, 40));
 
-        jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 60));
+        jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 60));
 
         jPanel11.setBackground(new java.awt.Color(204, 0, 0));
         jPanel11.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("Back");
+        jButton1.setBackground(new java.awt.Color(102, 255, 255));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jButton1.setText("Logout");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -145,7 +148,10 @@ public class Admins extends javax.swing.JFrame {
         header6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel9.add(header6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 140, 110));
 
+        jButton2.setBackground(new java.awt.Color(102, 255, 255));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton2.setText("Booked Rooms");
+        jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -153,7 +159,10 @@ public class Admins extends javax.swing.JFrame {
         });
         jPanel9.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 210, 200, 40));
 
+        jButton3.setBackground(new java.awt.Color(102, 255, 255));
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton3.setText("Rooms");
+        jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -161,7 +170,10 @@ public class Admins extends javax.swing.JFrame {
         });
         jPanel9.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, 200, 40));
 
+        jButton4.setBackground(new java.awt.Color(102, 255, 255));
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton4.setText("Reservations");
+        jButton4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -169,7 +181,10 @@ public class Admins extends javax.swing.JFrame {
         });
         jPanel9.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, 200, 40));
 
+        jButton5.setBackground(new java.awt.Color(102, 255, 255));
+        jButton5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton5.setText("Hotels");
+        jButton5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -177,7 +192,10 @@ public class Admins extends javax.swing.JFrame {
         });
         jPanel9.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 150, 200, 40));
 
+        jButton6.setBackground(new java.awt.Color(102, 255, 255));
+        jButton6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton6.setText("Logs");
+        jButton6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -186,7 +204,7 @@ public class Admins extends javax.swing.JFrame {
         jPanel9.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 330, 200, 40));
 
         getContentPane().add(jPanel9);
-        jPanel9.setBounds(0, 0, 670, 390);
+        jPanel9.setBounds(0, 0, 740, 470);
 
         setSize(new java.awt.Dimension(686, 429));
         setLocationRelativeTo(null);
@@ -198,10 +216,17 @@ public class Admins extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel28MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+  int confirm = javax.swing.JOptionPane.showConfirmDialog(
+        this, "Are you sure you want to logout?", "Logout Confirmation",
+        javax.swing.JOptionPane.YES_NO_OPTION);
+
+    if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+
+        this.dispose();       
         Login login = new Login();
         login.setVisible(true);
         this.dispose();
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void AUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AUsersMouseClicked
@@ -240,12 +265,17 @@ public class Admins extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        bookedRooms bh = new bookedRooms();
        bh.setVisible(true);
+       bh.jButton3.setVisible(false);
+       bh.jButton1.setVisible(false);
+       
        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
        reservedbookings rb = new reservedbookings();
        rb.setVisible(true);
+     rb.jButton3.setVisible(false);
+       rb.jButton1.setVisible(false);
        this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 

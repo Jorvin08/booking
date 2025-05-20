@@ -27,6 +27,7 @@ public class Registration extends javax.swing.JFrame {
      */
     public Registration() {
         initComponents();
+        setUndecorated(true);
     }
 
     public static String emails, usernames;
@@ -139,7 +140,7 @@ public class Registration extends javax.swing.JFrame {
         jPanel9.add(uname, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 160, -1));
 
         utype.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff" }));
+        utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Receptionist" }));
         utype.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 utypeActionPerformed(evt);
@@ -183,21 +184,23 @@ public class Registration extends javax.swing.JFrame {
 
         Back.setBackground(new java.awt.Color(0, 255, 255));
         Back.setText("Back");
+        Back.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BackActionPerformed(evt);
             }
         });
-        jPanel9.add(Back, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 440, 80, -1));
+        jPanel9.add(Back, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 429, 140, 30));
 
         jButton5.setBackground(new java.awt.Color(0, 255, 255));
         jButton5.setText("Register");
+        jButton5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel9.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 440, 80, -1));
+        jPanel9.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 429, 130, 30));
 
         jLabel36.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -252,9 +255,9 @@ public class Registration extends javax.swing.JFrame {
         jPanel9.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 560, 70));
 
         getContentPane().add(jPanel9);
-        jPanel9.setBounds(39, 47, 730, 480);
+        jPanel9.setBounds(0, 0, 730, 480);
 
-        setSize(new java.awt.Dimension(896, 580));
+        setSize(new java.awt.Dimension(745, 519));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

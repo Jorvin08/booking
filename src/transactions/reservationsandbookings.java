@@ -16,9 +16,11 @@ public class reservationsandbookings extends javax.swing.JFrame {
 
    
     public reservationsandbookings() {
+        setUndecorated(true);
         initComponents();
         loadMyBookedHotelsToTable();
         loadRoomReservationsToTable();
+        
     }
 private void loadMyBookedHotelsToTable() {
     String[] columnNames = {
@@ -140,6 +142,8 @@ private void loadRoomReservationsToTable() {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
+        jTable1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTable1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -153,6 +157,8 @@ private void loadRoomReservationsToTable() {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jTable2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTable2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -209,6 +215,8 @@ private void loadRoomReservationsToTable() {
         jLabel1.setForeground(new java.awt.Color(204, 0, 0));
         jLabel1.setText("Your Reservations and Bookings");
 
+        jButton2.setBackground(new java.awt.Color(102, 255, 255));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton2.setText("Back");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,7 +233,7 @@ private void loadRoomReservationsToTable() {
                 .addComponent(jButton2)
                 .addGap(63, 63, 63)
                 .addComponent(jLabel1)
-                .addContainerGap(203, Short.MAX_VALUE))
+                .addContainerGap(181, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,7 +243,7 @@ private void loadRoomReservationsToTable() {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton2)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 920, -1));

@@ -23,8 +23,10 @@ import javax.swing.JOptionPane;
 public class changePass extends javax.swing.JFrame {
 
     /** Creates new form User */
-    public changePass() {
+    public changePass() { setUndecorated(true);
+        
         initComponents();
+       
     }
 
     /** This method is called from within the constructor to
@@ -158,7 +160,7 @@ public class changePass extends javax.swing.JFrame {
         jLabel34.setText("type Old Pass");
         jPanel9.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, 90, -1));
 
-        save.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        save.setFont(new java.awt.Font("Verdana", 3, 14)); // NOI18N
         save.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         save.setText("BACK");
         save.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -168,7 +170,7 @@ public class changePass extends javax.swing.JFrame {
         });
         jPanel9.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 270, 50, 30));
 
-        save1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        save1.setFont(new java.awt.Font("Verdana", 3, 14)); // NOI18N
         save1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         save1.setText("SAVE");
         save1.addMouseListener(new java.awt.event.MouseAdapter() {

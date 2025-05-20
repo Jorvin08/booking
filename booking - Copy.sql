@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2025 at 07:46 PM
+-- Generation Time: May 20, 2025 at 07:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -44,7 +44,7 @@ CREATE TABLE `booked_rooms` (
 
 INSERT INTO `booked_rooms` (`booking_id`, `room_id`, `user_id`, `check_in_date`, `check_out_date`, `num_guests`, `special_requests`, `booking_status`) VALUES
 (1, 1, 16, '2025-05-19', '2025-05-24', 4, 'None', 'pending'),
-(2, 2, 16, '2025-05-20', '2025-05-24', 6, 'None', 'pending');
+(2, 2, 16, '2025-05-20', '2025-05-24', 6, 'None', 'approved');
 
 -- --------------------------------------------------------
 
@@ -116,7 +116,34 @@ INSERT INTO `function_logs` (`id`, `user_id`, `function_name`, `log_time`) VALUE
 (51, NULL, 'user logged in successfully', '2025-05-19 16:19:05'),
 (52, NULL, 'administrator logged in successfully', '2025-05-19 16:35:19'),
 (53, NULL, 'user logged in successfully', '2025-05-19 17:34:52'),
-(54, NULL, 'user logged in successfully', '2025-05-19 17:38:43');
+(54, NULL, 'user logged in successfully', '2025-05-19 17:38:43'),
+(55, NULL, 'user logged in successfully', '2025-05-20 15:45:36'),
+(56, NULL, 'administrator logged in successfully', '2025-05-20 15:46:28'),
+(57, NULL, 'user logged in successfully', '2025-05-20 16:00:03'),
+(58, NULL, 'user logged in successfully', '2025-05-20 16:00:26'),
+(59, NULL, 'user logged in successfully', '2025-05-20 16:04:33'),
+(60, NULL, 'administrator logged in successfully', '2025-05-20 16:05:42'),
+(61, NULL, 'administrator logged in successfully', '2025-05-20 16:13:23'),
+(62, NULL, 'administrator logged in successfully', '2025-05-20 16:28:43'),
+(63, NULL, 'administrator logged in successfully', '2025-05-20 16:32:04'),
+(64, NULL, 'administrator logged in successfully', '2025-05-20 16:35:59'),
+(65, NULL, 'user logged in successfully', '2025-05-20 16:36:48'),
+(66, NULL, 'user logged in successfully', '2025-05-20 16:43:23'),
+(67, NULL, 'administrator logged in successfully', '2025-05-20 16:44:15'),
+(68, NULL, 'user logged in successfully', '2025-05-20 16:46:07'),
+(69, NULL, 'administrator logged in successfully', '2025-05-20 16:46:14'),
+(70, NULL, 'administrator logged in successfully', '2025-05-20 16:47:41'),
+(71, NULL, 'user logged in successfully', '2025-05-20 16:52:18'),
+(72, NULL, 'administrator logged in successfully', '2025-05-20 16:52:28'),
+(73, NULL, 'administrator logged in successfully', '2025-05-20 16:55:13'),
+(74, NULL, 'Assistant logged in successfully', '2025-05-20 17:03:15'),
+(75, NULL, 'Assistant logged in successfully', '2025-05-20 17:08:27'),
+(76, NULL, 'administrator logged in successfully', '2025-05-20 17:11:08'),
+(77, NULL, 'administrator logged in successfully', '2025-05-20 17:13:18'),
+(78, NULL, 'Assistant logged in successfully', '2025-05-20 17:13:46'),
+(79, NULL, 'administrator logged in successfully', '2025-05-20 17:16:11'),
+(80, NULL, 'Assistant logged in successfully', '2025-05-20 17:16:36'),
+(81, NULL, 'Assistant logged in successfully', '2025-05-20 17:17:39');
 
 -- --------------------------------------------------------
 
@@ -165,6 +192,13 @@ CREATE TABLE `reserved_rooms` (
   `special_requests` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `reserved_rooms`
+--
+
+INSERT INTO `reserved_rooms` (`reservation_id`, `room_id`, `user_id`, `reservation_status`, `check_in_date`, `check_out_date`, `num_guests`, `special_requests`) VALUES
+(1, 8, 16, 'pending', '2025-05-21', '2025-05-22', 4, 'None');
+
 -- --------------------------------------------------------
 
 --
@@ -185,8 +219,23 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`room_id`, `hotel_id`, `room_number`, `room_type`, `price`, `status`) VALUES
-(1, 1, '1', 'VIP', 50.00, 'Available'),
-(2, 2, '1', 'Casual', 2500.00, 'not available');
+(1, 1, '1', 'VIP', 5000.00, 'Available'),
+(2, 2, '1', 'Casual', 2500.00, 'not available'),
+(8, 2, '2', 'Deluxe', 3000.00, 'not available'),
+(9, 2, '3', 'VIP', 5000.00, 'available'),
+(10, 2, '4', 'Casual', 2500.00, 'not available'),
+(11, 2, '5', 'Suite', 6000.00, 'available'),
+(12, 2, '6', 'Family', 3500.00, 'available'),
+(13, 2, '7', 'Deluxe', 3200.00, 'available'),
+(14, 2, '8', 'Casual', 2500.00, 'not available'),
+(15, 2, '9', 'VIP', 5000.00, 'available'),
+(16, 2, '10', 'Suite', 6200.00, 'available'),
+(17, 2, '11', 'Family', 3600.00, 'not available'),
+(18, 2, '12', 'Casual', 2400.00, 'available'),
+(19, 2, '13', 'Deluxe', 3100.00, 'available'),
+(20, 2, '14', 'VIP', 5200.00, 'not available'),
+(21, 2, '15', 'Family', 3700.00, 'available'),
+(22, 2, '16', 'Suite', 6400.00, 'available');
 
 -- --------------------------------------------------------
 
@@ -221,7 +270,8 @@ INSERT INTO `users` (`id`, `fname`, `lname`, `gender`, `account_type`, `email`, 
 (14, 'testtest', 'test', 'Male', 'Admin', 'Test123@gmail.com', 'test12345', 'ETdlsUaGcDe4FKjvHC7DXXO/t3yNJ6XxpSAJn1lJz6o=', '09123434554', 'Active', 'src/Images/3event.PNG', NULL, NULL),
 (15, 'adminis', 'admin', 'Male', 'Admin', 'adminis@gmail.com', 'administrator', 'LINbqJZtkCEg+0UEA3+tNO/6S5Rh6YjkxNoHOtUNroI=', '0987654321', 'Active', '', 'What is your Code name?', 'Babylonian'),
 (16, 'user', 'user', 'Male', 'Staff', 'user@gmail.com', 'user', 'LINbqJZtkCEg+0UEA3+tNO/6S5Rh6YjkxNoHOtUNroI=', '092323543554', 'Active', '', 'What\'s your favorite food?', 'yes'),
-(17, 'testtttt', 'rsttttt', 'Male', 'Admin', 'tedt@gmail.com', 'test123456', 'h3bxCOJHqx4rMjBCwEnCZkB8gfutQb3h6N/Bu2b9Jn4=', '092632323', 'Active', '', 'What\'s your favorite food?', 'no');
+(17, 'testtttt', 'rsttttt', 'Male', 'Admin', 'tedt@gmail.com', 'test123456', 'h3bxCOJHqx4rMjBCwEnCZkB8gfutQb3h6N/Bu2b9Jn4=', '092632323', 'Active', '', 'What\'s your favorite food?', 'no'),
+(18, 'Thelma', 'Brooklyn', 'Female', 'Receptionist', 'test1233@gmail.com', 'Assistant', 'LINbqJZtkCEg+0UEA3+tNO/6S5Rh6YjkxNoHOtUNroI=', '09232435454', 'Active', '', 'What is your Code name?', 'Bear');
 
 --
 -- Indexes for dumped tables
@@ -283,7 +333,7 @@ ALTER TABLE `booked_rooms`
 -- AUTO_INCREMENT for table `function_logs`
 --
 ALTER TABLE `function_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `hotels`
@@ -295,19 +345,19 @@ ALTER TABLE `hotels`
 -- AUTO_INCREMENT for table `reserved_rooms`
 --
 ALTER TABLE `reserved_rooms`
-  MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(150) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(150) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables

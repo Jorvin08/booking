@@ -19,6 +19,7 @@ private int attempts = 10;
      */
     public SQchoice() {
         initComponents();
+        setUndecorated(true);
     }
 
    private String getCorrectAnswerFromDatabase() {

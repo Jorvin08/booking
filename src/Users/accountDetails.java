@@ -18,6 +18,7 @@ public class accountDetails extends javax.swing.JFrame {
     /** Creates new form User */
     public accountDetails() {
         initComponents();
+        setUndecorated(true);
     }
 
     /** This method is called from within the constructor to
@@ -195,7 +196,7 @@ public class accountDetails extends javax.swing.JFrame {
                 cpassMouseClicked(evt);
             }
         });
-        jPanel9.add(cpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, 90, 30));
+        jPanel9.add(cpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 60, 90, 30));
         jPanel9.add(uname, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 120, 150, -1));
 
         jLabel34.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
