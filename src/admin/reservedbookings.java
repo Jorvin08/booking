@@ -305,7 +305,7 @@ private void loadAllReservationsToTable() {
     String password = "";
 
     // Update query to match new table and column names
-    String updateSql = "UPDATE reserved_rooms SET reservation_status = 'approved' WHERE id = ?";
+    String updateSql = "UPDATE reserved_rooms SET reservation_status = 'approved' WHERE reservation_id = ?";
 
     try (Connection conn = DriverManager.getConnection(url, username, password);
          PreparedStatement pst = conn.prepareStatement(updateSql)) {
