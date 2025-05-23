@@ -19,8 +19,9 @@ public class Admins extends javax.swing.JFrame {
 
     /** Creates new form User */
     public Admins() {
+         setUndecorated(true);
         initComponents();
-        setUndecorated(true);
+       
     }
 
     /** This method is called from within the constructor to

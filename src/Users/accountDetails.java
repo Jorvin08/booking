@@ -17,8 +17,9 @@ public class accountDetails extends javax.swing.JFrame {
 
     /** Creates new form User */
     public accountDetails() {
-        initComponents();
         setUndecorated(true);
+        initComponents();
+        
     }
 
     /** This method is called from within the constructor to

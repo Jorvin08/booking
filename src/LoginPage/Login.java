@@ -10,6 +10,7 @@ import Config.Session;
 import Config.config;
 import Config.passwordHasher;
 import Users.ForgotPassword;
+import static Users.ResetPassword.hashPassword;
 import Users.User;
 import admin.Admins;
 import admin.bookedRooms;
@@ -45,7 +46,7 @@ public class Login extends javax.swing.JFrame {
                 
              
                 String hashedPass= resultSet.getString("pname");
-                String rehashedPass = passwordHasher.hashPassword(password);
+                String rehashedPass = hashPassword(password);
                 
                   System.out.println(""+hashedPass );
                    System.out.println(""+ rehashedPass );
@@ -76,7 +77,7 @@ public class Login extends javax.swing.JFrame {
                  return false;
             }
             
-        }catch(SQLException | NoSuchAlgorithmException ex){
+        }catch(SQLException ex){
             return false ;
         }
        

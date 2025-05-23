@@ -18,8 +18,9 @@ public class RecoveryChoice extends javax.swing.JFrame {
      * Creates new form RecoveryChoice
      */
     public RecoveryChoice() {
-        initComponents();
         setUndecorated(true);
+        initComponents();
+        
     }
 
     /**

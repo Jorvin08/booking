@@ -17,8 +17,9 @@ public class ResetPassword extends javax.swing.JFrame {
 
     
     public ResetPassword() {
+         setUndecorated(true);
         initComponents();
-        setUndecorated(true);
+       
     }
 
    private boolean updatePassword(String newPassword) {

@@ -14,8 +14,9 @@ public class ForgotPassword extends javax.swing.JFrame {
 private Connection connect;
     
     public ForgotPassword() {
-        initComponents();
         setUndecorated(true);
+        initComponents();
+        
         DbConnect();
     }
  private void DbConnect() {

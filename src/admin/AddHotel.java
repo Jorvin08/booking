@@ -14,8 +14,9 @@ public class AddHotel extends javax.swing.JFrame {
 
   
     public AddHotel() {
-        initComponents();
         setUndecorated(true);
+        initComponents();
+        
     }
 
 
